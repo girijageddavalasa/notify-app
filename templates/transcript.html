@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Notify – Transcript & Summary</title>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+
+<style>
+:root {
+  --bg-light: linear-gradient(120deg, #e6ecff, #f9faff);
+  --bg-dark: linear-gradient(120deg, #0c0c0c, #181818);
+  --card-light: rgba(255,255,255,0.3);
+  --card-dark: rgba(30,30,30,0.7);
+  --text-dark: #181818;
+  --text-light: #f5f5f5;
+  --accent: #000000;
+  --t: .4s ease;
+}
+
+body {
+  margin: 0;
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--bg-light);
+  background-size: 400% 400%;
+  font-family: 'Poppins', sans-serif;
+  color: var(--text-dark);
+  transition: var(--t);
+  animation: gradientShift 18s ease infinite;
+}
+@keyframes gradientShift {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+body.dark {
+  background: var(--bg-dark);
+  color: var(--text-light);
+}
+
+/* Header / topbar */
+.brand {
+  position: fixed;
+  top: 25px; left: 35px;
+  font-size: 1.5rem;
+  font-weight: 700;
+}
+.toggle-container {
+  position: fixed;
+  top: 25px; right: 35px;
+  display: flex; align-items: center; gap: 10px;
+  font-size: 0.9rem;
+}
+.switch { position: relative; width: 56px; height: 28px; }
+.switch input { display: none; }
+.slider {
+  position: absolute; inset: 0;
+  background: #ccc; border-radius: 30px; transition: .4s;
+}
+.slider:before {
+  content: ""; position: absolute; left: 3px; bottom: 3px;
+  width: 22px; height: 22px; background: white; border-radius: 50%; transition: .4s;
+}
+input:checked + .slider { background: #444; }
+input:checked + .slider:before { transform: translateX(28px); }
+
+/* Glass card */
+.card {
+  width: 80%;
+  max-width: 800px;
+  padding: 50px 60px;
+  border-radius: 24px;
+  background: var(--card-light);
+  backdrop-filter: blur(18px);
+  box-shadow: 0 25px 80px rgba(0,0,0,.15);
+  text-align: center;
+  transition: var(--t);
+  animation: fadeUp 0.8s ease;
+}
+body.dark .card {
+  background: var(--card-dark);
+  box-shadow: 0 25px 120px rgba(0,0,0,.6);
+}
+
+/* Title */
+h1 {
+  font-size: 2.4rem;
+  font-weight: 700;
+  letter-spacing: 0.5px;
+  background: linear-gradient(90deg, #000000, #4b4b4b);
+  -webkit-background-clip: text;
+  color: transparent;
+  animation: slideText 1s ease forwards;
+}
+body.dark h1 {
+  background: linear-gradient(90deg, #ffffff, #bbbbbb);
+  -webkit-background-clip: text;
+}
+
+/* Results Section */
+#results {
+  background: rgba(255,255,255,0.85);
+  border: none;
+  border-radius: 14px;
+  padding: 22px;
+  text-align: left;
+  width: 100%;
+  color: var(--text-dark);
+  box-shadow: inset 0 0 10px rgba(0,0,0,.1);
+  transition: var(--t);
+}
+body.dark #results {
+  background: rgba(0,0,0,0.35);
+  color: var(--text-light);
+  box-shadow: inset 0 0 12px rgba(255,255,255,.05);
+}
+#results strong {
+  display: block;
+  margin-top: 15px;
+  font-size: 1.1rem;
+  color: var(--text-dark);
+}
+body.dark #results strong {
+  color: var(--text-light);
+}
+#results p {
+  margin: 6px 0 10px;
+  font-size: 1rem;
+  line-height: 1.6;
+  animation: fadeIn 0.8s ease;
+}
+
+/* Buttons */
+.btns {
+  margin-top: 25px;
+  display: flex;
+  justify-content: center;
+  gap: 15px;
+}
+button {
+  background: #2b2b2b;
+  color: white;
+  border: none;
+  padding: 12px 26px;
+  border-radius: 10px;
+  cursor: pointer;
+  font-weight: 600;
+  font-size: 15px;
+  transition: all .3s ease;
+}
+button:hover {
+  background: var(--accent);
+  box-shadow: 0 0 15px rgba(0,0,0,.3);
+}
+body.dark button {
+  background: #f5f5f5;
+  color: #1a1a1a;
+}
+body.dark button:hover {
+  background: var(--accent);
+  color: white;
+}
+
+/* Animations */
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(15px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+@keyframes slideText {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(5px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+</style>
+</head>
+<body>
+<div class="brand">Notify</div>
+
+<div class="toggle-container">
+  <span>Light / Dark</span>
+  <label class="switch">
+    <input type="checkbox" onclick="document.body.classList.toggle('dark')">
+    <span class="slider"></span>
+  </label>
+</div>
+
+<div class="card">
+  <h1>Transcript & Summary</h1>
+
+  <div id="results">
+    <strong>Transcribed Text:</strong>
+    <p id="transcript">Loading...</p>
+
+    <strong>Summary:</strong>
+    <p id="summary">Loading...</p>
+  </div>
+
+ 
+  <div class="btns">
+  <button onclick="window.location.href='/logs'">⬅ Back</button>
+  <button onclick="window.location.href='/translate'">Next ➡</button>
+</div>
+
+</div>
+
+<script>
+async function fetchResults() {
+  try {
+    const res = await fetch("/api/results");
+    const data = await res.json();
+    const r = data.results;
+    if (!r) return;
+    if (r.transcript) document.getElementById("transcript").innerText = r.transcript;
+    if (r.summary) document.getElementById("summary").innerText = r.summary;
+  } catch (err) {
+    console.error(err);
+  }
+}
+fetchResults();
+</script>
+</body>
+</html>

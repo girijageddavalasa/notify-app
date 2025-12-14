@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>🔊 Audio Playback</title>
+<style>
+body { font-family: 'Segoe UI', Verdana; background: #fff0f5; padding: 40px; text-align: center; }
+h1 { color: #99004d; }
+.audio-player { margin-top: 30px; }
+button { background-color: #007bff; color: white; border: none; padding: 10px 20px; border-radius: 6px; cursor: pointer; margin: 5px; }
+button:hover { background-color: #0056b3; }
+</style>
+</head>
+<body>
+<h1>🔊 Translated Audio Playback</h1>
+
+<div class="audio-player" id="audioContainer">
+  <audio id="audioPlayer" controls></audio>
+</div>
+
+<div>
+  <button onclick="location.href='/translate'">⬅ Back</button>
+  <button onclick="location.href='/'">🏠 Home</button>
+</div>
+
+<script>
+async function fetchAudio() {
+    const res = await fetch("/api/results");
+    const data = await res.json();
+    const r = data.results;
+    if (r.output_audio) {
+        document.getElementById("audioPlayer").src = `/api/audio/${r.output_audio}`;
+    }
+}
+fetchAudio();
+</script>
+</body>
+</html>
